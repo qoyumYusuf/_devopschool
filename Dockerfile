@@ -1,41 +1,26 @@
-# Stage 1: Build the image
-FROM node:lts-alpine3.18 as builder
+# Use node LTS alpine image as the base
+FROM node:lts-alpine3.18
 
-# Create app directory
+# Set working directory
 WORKDIR /usr/src/app
 
-# Set environment variable for local development
-ENV NODE_ENV="production"
-
-# Install dumb-init in the builder stage
+# Install dumb-init
 RUN apk add --no-cache dumb-init
 
-# Install app dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Install app dependencies
 RUN npm ci --only=production
 
-#Create a node user
-USER node
+# Copy app source
+COPY . .
 
-# Bundle app source
-COPY --chown=node:node . /usr/src/app
+# Set environment variable
+ENV NODE_ENV=production
 
-# Stage 2: Create the production image
-FROM node:lts-alpine3.18 as production
+# Expose port
+EXPOSE 8088
 
-# Create app directory
-WORKDIR /usr/src/app
-
-# Set environment variable for production
-ENV NODE_ENV="production"
-
-# Install dumb-init in the production stage
-RUN apk add --no-cache dumb-init
-
- # Copy the built application from the builder stage
-COPY --from=builder /usr/src/app .
-
-EXPOSE 8080
-
-CMD [ "dumb-init", "node", "server.js" ]
+# Start the application using dumb-init
+CMD ["dumb-init", "node", "server.js"]
