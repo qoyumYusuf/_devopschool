@@ -1,3 +1,5 @@
+<img src="./Icon.png" width="128" style="border-radius: 16px;">
+
 # POWR Chameleon
 
 ## Content
