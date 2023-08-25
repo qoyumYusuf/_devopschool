@@ -5,7 +5,7 @@ import fs from 'fs';
 import { parse } from 'node-html-parser';
 
 const ScrapeWebsite = async (url) => {
-  const pathDir = `./urlFolders/${url}`;
+  const pathDir = `./urlFolders/${url.replace(/[^a-zA-Z0-9]+/g, "")}`;
   let options = {
     urls: [url],
     directory: pathDir,
