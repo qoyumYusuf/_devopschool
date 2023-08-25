@@ -28,4 +28,5 @@ To scrape the styles from provided URL.
 
 1. Open any browser
 2. End-point to get the styles is `localhost:PORT/api/styles?url=YOUR_URL` // Put any url instead of the _YOUR_URL_
+> Example: YOUR_URL: https://labotanicaplantmagic.com/
 3. You whould expect JSON output

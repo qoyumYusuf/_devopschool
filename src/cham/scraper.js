@@ -4,10 +4,8 @@ import cssjs from 'jotform-css.js';
 import fs from 'fs';
 import { parse } from 'node-html-parser';
 
-let folderCount = 0;
-
 const ScrapeWebsite = async (url) => {
-  const pathDir = `./urlFolders/${folderCount}/`;
+  const pathDir = `./urlFolders/${url}`;
   let options = {
     urls: [url],
     directory: pathDir,
@@ -21,7 +19,6 @@ const ScrapeWebsite = async (url) => {
       console.log("Website succesfully downloaded", url);
       console.log("Removing the downloaded files for unnecessity")
       fs.rmSync(pathDir, { recursive: true })
-      folderCount++;
     })
 
   let plainCsses = ""
