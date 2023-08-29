@@ -3,10 +3,10 @@ import url from 'url';
 import ScrapeWebsite from './cham/scraper.js';
 import { config } from 'dotenv';
 
-config()
+config();
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3010;
 
 app.get("/api/styles", async (req, res) => {
   const reqUrl = req.url
@@ -24,6 +24,8 @@ app.get("/api/styles", async (req, res) => {
 });
 
 // start the Express server
+console.log('PORT from .env:', port);
+
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
